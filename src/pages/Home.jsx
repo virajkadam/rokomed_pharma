@@ -12,7 +12,10 @@ import {
   faDna,
   faVial,
   faHandHoldingMedical,
-  faSpinner
+  faSpinner,
+  faChevronLeft,
+  faPause,
+  faPlay
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
@@ -28,6 +31,12 @@ const LoadingSpinner = () => (
 
 const Home = () => {
   const [activeCategory, setActiveCategory] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
+  const [isSwiping, setIsSwiping] = useState(false);
+  const [swipeDistance, setSwipeDistance] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const [stats, setStats] = useState({ products: 0, states: 0, team: 0 });
 
   // Aurora gradient animation colors - adjusted for pharma theme
@@ -143,6 +152,78 @@ const Home = () => {
       color: "from-orange-500 to-red-500"
     }
   ];
+
+  // Auto-play functionality
+  useEffect(() => {
+    let interval;
+    if (isAutoPlaying) {
+      interval = setInterval(() => {
+        setActiveCategory((prev) => 
+          prev === productCategories.length - 1 ? 0 : prev + 1
+        );
+      }, 5000); // Change slide every 5 seconds
+    }
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, productCategories.length]);
+
+  // Handle manual navigation
+  const goToSlide = (index) => {
+    setActiveCategory(index);
+    setIsAutoPlaying(false); // Stop autoplay when manually navigating
+  };
+
+  const nextSlide = () => {
+    setActiveCategory((prev) => 
+      prev === productCategories.length - 1 ? 0 : prev + 1
+    );
+    setIsAutoPlaying(false);
+  };
+
+  const prevSlide = () => {
+    setActiveCategory((prev) => 
+      prev === 0 ? productCategories.length - 1 : prev - 1
+    );
+    setIsAutoPlaying(false);
+  };
+
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+    setIsSwiping(true);
+    setIsAutoPlaying(false);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isSwiping) return;
+    
+    const currentX = e.touches[0].clientX;
+    const distance = currentX - touchStartX;
+    
+    // Limit the swipe distance to improve UX
+    const maxSwipe = window.innerWidth * 0.8;
+    const limitedDistance = Math.max(Math.min(distance, maxSwipe), -maxSwipe);
+    
+    setSwipeDistance(limitedDistance);
+    setTouchEndX(currentX);
+  };
+
+  const handleTouchEnd = () => {
+    setIsSwiping(false);
+    
+    const swipeThreshold = 50; // Minimum distance to trigger slide change
+    const swipeDistance = touchEndX - touchStartX;
+    
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+      if (swipeDistance > 0) {
+        prevSlide();
+      } else {
+        nextSlide();
+      }
+    }
+    
+    // Reset swipe distance
+    setSwipeDistance(0);
+  };
 
   return (
     <>
@@ -272,44 +353,44 @@ const Home = () => {
             
             {/* Mobile View - Card Slider */}
             <div className="lg:hidden">
-              <div className="relative px-4">
-                <div className="overflow-hidden">
+              <div className="relative">
+                <div 
+                  className="overflow-hidden touch-pan-y"
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                >
                   <div 
                     className="flex transition-transform duration-300 ease-out"
-                    style={{ transform: `translateX(-${activeCategory * 100}%)` }}
+                    style={{ 
+                      transform: `translateX(${-activeCategory * 100 + (isSwiping ? swipeDistance : 0)}%)` 
+                    }}
                   >
                     {productCategories.map((category, index) => (
                       <div key={index} className="w-full flex-shrink-0 px-4">
-                        <div className="bg-white rounded-xl overflow-hidden shadow-lg">
-                          <div className="relative h-48">
+                        <div className="bg-white rounded-2xl overflow-hidden">
+                          <div className="relative aspect-[4/3]">
                             <img 
                               src={category.image}
                               alt={category.title}
                               className="w-full h-full object-cover"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
-                              <div className="absolute bottom-4 left-4">
-                                <div className="bg-white/10 backdrop-blur-sm p-2 rounded-lg inline-block">
-                                  <FontAwesomeIcon 
-                                    icon={category.icon} 
-                                    className="text-white text-xl"
-                                  />
-                                </div>
-                              </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 right-0 p-6">
+                              <h3 className="text-xl font-semibold text-white mb-2">{category.title}</h3>
+                              <p className="text-white/90 text-sm">{category.description}</p>
                             </div>
                           </div>
-                          <div className="p-6">
-                            <h3 className="text-xl font-semibold mb-2">{category.title}</h3>
-                            <p className="text-neutral-600 text-sm mb-4">{category.description}</p>
+                          <div className="p-6 border-t border-neutral-100">
                             <div className="flex items-center justify-between">
-                              <span className="text-primary font-medium">{category.stats}</span>
-                              <Link 
-                                to={`/products/${category.title.toLowerCase().replace(' ', '-')}`}
-                                className="text-accent hover:text-accent/80 transition-colors inline-flex items-center gap-2"
+                              <span className="text-sm text-neutral-500">{category.stats}</span>
+                              <button 
+                                onClick={() => goToSlide(index)}
+                                className="text-primary hover:text-primary/80 text-sm font-medium transition-colors flex items-center gap-2"
                               >
                                 View Details
                                 <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                              </Link>
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -317,17 +398,19 @@ const Home = () => {
                     ))}
                   </div>
                 </div>
-                
-                {/* Navigation Dots */}
-                <div className="flex justify-center gap-2 mt-6">
+
+                {/* Progress Indicators */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
                   {productCategories.map((_, index) => (
                     <button
                       key={index}
-                      onClick={() => setActiveCategory(index)}
+                      onClick={() => goToSlide(index)}
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        activeCategory === index ? 'w-8 bg-primary' : 'bg-neutral-300'
+                        activeCategory === index 
+                          ? 'bg-primary w-4' 
+                          : 'bg-neutral-300 hover:bg-neutral-400'
                       }`}
-                      aria-label={`View category ${index + 1}`}
+                      aria-label={`Go to slide ${index + 1}`}
                     />
                   ))}
                 </div>
