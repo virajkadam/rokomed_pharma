@@ -21,6 +21,9 @@ import {
 // Lazy load Footer
 const Footer = lazy(() => import('../components/layout/Footer'));
 
+// Import ProductDetails component
+const ProductDetails = lazy(() => import('../components/products/ProductDetails'));
+
 // Loading component for Suspense fallback
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center p-8">
@@ -108,6 +111,14 @@ const Products = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Add state for selected product
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // Update product details handler
+  const handleProductDetails = (product) => {
+    setSelectedProduct(product);
+  };
+
   // Add error boundary for product rendering
   const renderProducts = () => {
     if (error) {
@@ -183,12 +194,6 @@ const Products = () => {
         </div>
       </motion.div>
     ));
-  };
-
-  // Add product details handler
-  const handleProductDetails = (product) => {
-    // TODO: Implement product details view
-    console.log('View details for:', product.name);
   };
 
   return (
@@ -332,6 +337,16 @@ const Products = () => {
           </div>
         </section>
       </div>
+
+      {/* Product Details Modal */}
+      <Suspense fallback={<LoadingSpinner />}>
+        {selectedProduct && (
+          <ProductDetails
+            product={selectedProduct}
+            onClose={() => setSelectedProduct(null)}
+          />
+        )}
+      </Suspense>
 
       {/* Lazy loaded Footer with Suspense */}
       <Suspense fallback={<LoadingSpinner />}>
