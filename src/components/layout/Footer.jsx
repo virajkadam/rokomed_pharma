@@ -20,6 +20,28 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const quickLinks = [
+    { path: '/about', label: 'About Us' },
+    { path: '/mission-vision', label: 'Mission & Vision' },
+    { path: '/products', label: 'Our Products' },
+    { path: '/careers', label: 'Careers' },
+    { path: '/wholesaler', label: 'Wholesaler Portal' },
+    { path: '/contact', label: 'Contact Us' }
+  ];
+
+  const productCategories = [
+    { path: '/products/generic-medicines', label: 'Generic Medicines' },
+    { path: '/products/specialty-medicines', label: 'Specialty Medicines' },
+    { path: '/products/otc-products', label: 'OTC Products' }
+  ];
+
+  const companyInfo = [
+    { path: '/about', label: 'Company Profile' },
+    { path: '/mission-vision', label: 'Mission & Vision' },
+    { path: '/quality', label: 'Quality Standards' },
+    { path: '/csr', label: 'CSR Initiatives' }
+  ];
+
   return (
     <footer className="bg-neutral-900 text-white">
       {/* Pre-Footer CTA */}
@@ -77,36 +99,17 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
             <ul className="space-y-4">
-              <li>
-                <Link to="/about" className="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2">
-                  <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/products" className="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2">
-                  <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                  Our Products
-                </Link>
-              </li>
-              <li>
-                <Link to="/careers" className="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2">
-                  <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link to="/wholesaler" className="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2">
-                  <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                  Wholesaler Portal
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2">
-                  <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                  Contact Us
-                </Link>
-              </li>
+              {quickLinks.map((link, index) => (
+                <li key={index}>
+                  <Link 
+                    to={link.path} 
+                    className="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2"
+                  >
+                    <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -114,24 +117,17 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-6">Our Products</h4>
             <ul className="space-y-4">
-              <li>
-                <Link to="/products/generic-medicines" className="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2">
-                  <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                  Generic Medicines
-                </Link>
-              </li>
-              <li>
-                <Link to="/products/specialty-medicines" className="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2">
-                  <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                  Specialty Medicines
-                </Link>
-              </li>
-              <li>
-                <Link to="/products/otc-products" className="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2">
-                  <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                  OTC Products
-                </Link>
-              </li>
+              {productCategories.map((link, index) => (
+                <li key={index}>
+                  <Link 
+                    to={link.path} 
+                    className="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2"
+                  >
+                    <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
