@@ -45,7 +45,7 @@ const Footer = () => {
   return (
     <footer className="bg-neutral-900 text-white">
       {/* Pre-Footer CTA */}
-      <div className="bg-primary">
+      {/* <div className="bg-primary">
         <div className="container mx-auto px-4 py-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
@@ -64,7 +64,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-16">
@@ -79,7 +79,7 @@ const Footer = () => {
             <p className="text-neutral-400 mb-6">
               Leading pharmaceutical company committed to delivering high-quality, affordable medicines while maintaining the highest standards of manufacturing and ethical business practices.
             </p>
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <a href="#" className="text-neutral-400 hover:text-white transition-colors">
                 <FontAwesomeIcon icon={faLinkedin} size="lg" />
               </a>
@@ -92,7 +92,7 @@ const Footer = () => {
               <a href="#" className="text-neutral-400 hover:text-white transition-colors">
                 <FontAwesomeIcon icon={faInstagram} size="lg" />
               </a>
-            </div>
+            </div> */}
           </div>
 
           {/* Quick Links */}
