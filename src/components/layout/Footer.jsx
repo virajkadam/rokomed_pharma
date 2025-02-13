@@ -6,14 +6,16 @@ import {
   faEnvelope, 
   faLocationDot,
   faChevronRight,
-  faArrowUp
+  faArrowUp,
+  faClock
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faLinkedin,
   faFacebook,
   faTwitter,
-  faInstagram
+  faWhatsapp
 } from '@fortawesome/free-brands-svg-icons';
+import { COMPANY_INFO } from '../../config/company';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -33,13 +35,6 @@ const Footer = () => {
     { path: '/products/generic-medicines', label: 'Generic Medicines' },
     { path: '/products/specialty-medicines', label: 'Specialty Medicines' },
     { path: '/products/otc-products', label: 'OTC Products' }
-  ];
-
-  const companyInfo = [
-    { path: '/about', label: 'Company Profile' },
-    { path: '/mission-vision', label: 'Mission & Vision' },
-    { path: '/quality', label: 'Quality Standards' },
-    { path: '/csr', label: 'CSR Initiatives' }
   ];
 
   return (
@@ -73,7 +68,7 @@ const Footer = () => {
           <div>
             <img 
               src="/logo-white.png" 
-              alt="Rokomed Pharma" 
+              alt={COMPANY_INFO.name}
               className="h-12 mb-6"
             />
             <p className="text-neutral-400 mb-6">
@@ -138,21 +133,21 @@ const Footer = () => {
               <li className="flex items-start gap-3 text-neutral-400">
                 <FontAwesomeIcon icon={faLocationDot} className="mt-1" />
                 <p>
-                  Survey No. 123, IT Park Road,<br />
-                  Hinjewadi Phase 1, Pune - 411057<br />
-                  Maharashtra, India
+                  {COMPANY_INFO.addresses.corporate.line1}<br />
+                  {COMPANY_INFO.addresses.corporate.line2}<br />
+                  {COMPANY_INFO.addresses.corporate.line3}
                 </p>
               </li>
               <li>
-                <a href="tel:+912012345678" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-3">
+                <a href={`tel:${COMPANY_INFO.phone}`} className="text-neutral-400 hover:text-white transition-colors flex items-center gap-3">
                   <FontAwesomeIcon icon={faPhone} />
-                  +91-20-XXXXXXXX
+                  {COMPANY_INFO.phone}
                 </a>
               </li>
               <li>
-                <a href="mailto:info@rokomedpharma.com" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-3">
+                <a href={`mailto:${COMPANY_INFO.email}`} className="text-neutral-400 hover:text-white transition-colors flex items-center gap-3">
                   <FontAwesomeIcon icon={faEnvelope} />
-                  info@rokomedpharma.com
+                  {COMPANY_INFO.email}
                 </a>
               </li>
             </ul>
@@ -165,7 +160,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-neutral-400 text-sm">
-              © 2024 Rokomed Pharma. All rights reserved.
+              © {new Date().getFullYear()} {COMPANY_INFO.name}. All rights reserved.
             </div>
             <div className="flex gap-6 text-sm">
               <Link to="/privacy-policy" className="text-neutral-400 hover:text-white transition-colors">
