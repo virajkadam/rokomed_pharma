@@ -10,7 +10,7 @@ import Contact from './pages/Contact';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/rokomed_pharma">
       <div className="min-h-screen">
         <Navbar />
         <Routes>
