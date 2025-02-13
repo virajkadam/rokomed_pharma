@@ -17,6 +17,7 @@ import {
   faFilter,
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
+import JobApplicationForm from '../components/careers/JobApplicationForm';
 
 // Lazy load Footer
 const Footer = lazy(() => import('../components/layout/Footer'));
@@ -31,6 +32,7 @@ const LoadingSpinner = () => (
 const Careers = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('all');
+  const [selectedJob, setSelectedJob] = useState(null);
 
   const departments = [
     { id: 'all', name: 'All Departments' },
@@ -248,7 +250,10 @@ const Careers = () => {
                       </div>
                       <p className="mt-2 text-neutral-600">{job.description}</p>
                     </div>
-                    <button className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors whitespace-nowrap">
+                    <button 
+                      onClick={() => setSelectedJob(job)}
+                      className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors whitespace-nowrap"
+                    >
                       Apply Now
                     </button>
                   </div>
@@ -383,6 +388,14 @@ const Careers = () => {
           </div>
         </section>
       </div>
+
+      {/* Job Application Form Modal */}
+      {selectedJob && (
+        <JobApplicationForm
+          job={selectedJob}
+          onClose={() => setSelectedJob(null)}
+        />
+      )}
 
       {/* Lazy loaded Footer with Suspense */}
       <Suspense fallback={<LoadingSpinner />}>
