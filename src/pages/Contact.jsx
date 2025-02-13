@@ -20,6 +20,7 @@ import {
   faFacebook,
   faTwitter
 } from '@fortawesome/free-brands-svg-icons';
+import { COMPANY_INFO } from '../config/company';
 
 // Lazy load Footer
 const Footer = lazy(() => import('../components/layout/Footer'));
@@ -112,22 +113,22 @@ const Contact = () => {
                   icon: faHeadset,
                   title: "Customer Support",
                   content: "24/7 dedicated support for all your queries",
-                  contact: "1800-XXX-XXXX",
-                  link: "tel:1800XXXXXXX"
+                  contact: COMPANY_INFO.phone,
+                  link: `tel:${COMPANY_INFO.phone}`
                 },
                 {
                   icon: faWhatsapp,
                   title: "WhatsApp Business",
                   content: "Quick responses through WhatsApp",
-                  contact: "+91 XXXXX XXXXX",
-                  link: "https://wa.me/91XXXXXXXXXX"
+                  contact: COMPANY_INFO.whatsapp,
+                  link: COMPANY_INFO.social.whatsapp
                 },
                 {
                   icon: faEnvelope,
                   title: "Email Us",
                   content: "Send us your queries anytime",
-                  contact: "info@rokomedpharma.com",
-                  link: "mailto:info@rokomedpharma.com"
+                  contact: COMPANY_INFO.email,
+                  link: `mailto:${COMPANY_INFO.email}`
                 }
               ].map((item, index) => (
                 <motion.div
@@ -311,18 +312,18 @@ const Contact = () => {
                       <div>
                         <h3 className="text-xl font-semibold mb-2">Corporate Office</h3>
                         <p className="text-neutral-600 mb-4">
-                          Survey No. 123, IT Park Road,<br />
-                          Hinjewadi Phase 1, Pune - 411057<br />
-                          Maharashtra, India
+                          {COMPANY_INFO.addresses.corporate.line1}<br />
+                          {COMPANY_INFO.addresses.corporate.line2}<br />
+                          {COMPANY_INFO.addresses.corporate.line3}
                         </p>
                         <div className="space-y-2">
-                          <a href="tel:+912012345678" className="flex items-center gap-2 text-neutral-600 hover:text-primary transition-colors">
+                          <a href={`tel:${COMPANY_INFO.addresses.corporate.phone}`} className="flex items-center gap-2 text-neutral-600 hover:text-primary transition-colors">
                             <FontAwesomeIcon icon={faPhone} />
-                            +91-20-XXXXXXXX
+                            {COMPANY_INFO.addresses.corporate.phone}
                           </a>
                           <div className="flex items-center gap-2 text-neutral-600">
                             <FontAwesomeIcon icon={faClock} />
-                            Mon - Sat: 9:00 AM - 6:00 PM
+                            {COMPANY_INFO.addresses.corporate.timing}
                           </div>
                         </div>
                       </div>
@@ -338,18 +339,18 @@ const Contact = () => {
                       <div>
                         <h3 className="text-xl font-semibold mb-2">Manufacturing Unit</h3>
                         <p className="text-neutral-600 mb-4">
-                          Plot No. 45, MIDC Ranjangaon,<br />
-                          Pune - 412220<br />
-                          Maharashtra, India
+                          {COMPANY_INFO.addresses.manufacturing.line1}<br />
+                          {COMPANY_INFO.addresses.manufacturing.line2}<br />
+                          {COMPANY_INFO.addresses.manufacturing.line3}
                         </p>
                         <div className="space-y-2">
-                          <a href="tel:+912012345678" className="flex items-center gap-2 text-neutral-600 hover:text-primary transition-colors">
+                          <a href={`tel:${COMPANY_INFO.addresses.manufacturing.phone}`} className="flex items-center gap-2 text-neutral-600 hover:text-primary transition-colors">
                             <FontAwesomeIcon icon={faPhone} />
-                            +91-20-XXXXXXXX
+                            {COMPANY_INFO.addresses.manufacturing.phone}
                           </a>
                           <div className="flex items-center gap-2 text-neutral-600">
                             <FontAwesomeIcon icon={faClock} />
-                            24/7 Operation
+                            {COMPANY_INFO.addresses.manufacturing.timing}
                           </div>
                         </div>
                       </div>
@@ -357,18 +358,20 @@ const Contact = () => {
                   </div>
 
                   {/* Social Media */}
-                  <div className="bg-neutral-50 p-6 rounded-xl shadow-sm">
+                  {/* <div className="bg-neutral-50 p-6 rounded-xl shadow-sm">
                     <h3 className="text-xl font-semibold mb-6">Connect With Us</h3>
                     <div className="flex gap-4">
                       {[
-                        { icon: faLinkedin, label: 'LinkedIn' },
-                        { icon: faFacebook, label: 'Facebook' },
-                        { icon: faTwitter, label: 'Twitter' },
-                        { icon: faWhatsapp, label: 'WhatsApp' }
+                        { icon: faLinkedin, label: 'LinkedIn', link: COMPANY_INFO.social.linkedin },
+                        { icon: faFacebook, label: 'Facebook', link: COMPANY_INFO.social.facebook },
+                        { icon: faTwitter, label: 'Twitter', link: COMPANY_INFO.social.twitter },
+                        { icon: faWhatsapp, label: 'WhatsApp', link: COMPANY_INFO.social.whatsapp }
                       ].map((social, index) => (
                         <a 
                           key={index}
-                          href="#" 
+                          href={social.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="flex-1 py-3 rounded-lg bg-white shadow-sm hover:shadow-md flex flex-col items-center gap-2 text-primary hover:bg-primary hover:text-white transition-all duration-300"
                           aria-label={social.label}
                         >
@@ -377,7 +380,7 @@ const Contact = () => {
                         </a>
                       ))}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </motion.div>
             </div>
@@ -411,15 +414,17 @@ const Contact = () => {
                     <div>
                       <h4 className="font-medium text-neutral-900 mb-2">Corporate Office</h4>
                       <p className="text-neutral-600 text-sm">
-                        Survey No. 123, IT Park Road,
-                        Hinjewadi Phase 1, Pune - 411057
+                        {COMPANY_INFO.addresses.corporate.line1}<br />
+                        {COMPANY_INFO.addresses.corporate.line2}<br />
+                        {COMPANY_INFO.addresses.corporate.line3}
                       </p>
                     </div>
                     <div>
                       <h4 className="font-medium text-neutral-900 mb-2">Manufacturing Unit</h4>
                       <p className="text-neutral-600 text-sm">
-                        Plot No. 45, MIDC Ranjangaon,
-                        Pune - 412220
+                        {COMPANY_INFO.addresses.manufacturing.line1}<br />
+                        {COMPANY_INFO.addresses.manufacturing.line2}<br />
+                        {COMPANY_INFO.addresses.manufacturing.line3}
                       </p>
                     </div>
                     <div className="pt-4 border-t border-neutral-100">
