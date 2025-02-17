@@ -46,7 +46,7 @@ const ProductDetails = ({ product, onClose }) => {
             {/* Product Image Section */}
             <div className="relative">
               <img
-                src={product.image}
+                src={product.image_url}
                 alt={product.name}
                 className="w-full h-64 md:h-full object-cover rounded-t-xl md:rounded-l-xl md:rounded-tr-none"
                 onError={(e) => {
@@ -54,7 +54,7 @@ const ProductDetails = ({ product, onClose }) => {
                   e.target.onerror = null;
                 }}
               />
-              {product.prescription && (
+              {product.prescription_required && (
                 <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">
                   Rx Only
                 </div>
@@ -64,7 +64,7 @@ const ProductDetails = ({ product, onClose }) => {
             {/* Product Information Section */}
             <div className="p-6 md:p-8">
               <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
-              <p className="text-neutral-600 mb-6">{product.composition}</p>
+              <p className="text-neutral-600 mb-6">{product.description}</p>
 
               {/* Quick Actions */}
               <div className="flex gap-3 mb-6">
@@ -89,11 +89,11 @@ const ProductDetails = ({ product, onClose }) => {
                   <div className="bg-neutral-50 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <FontAwesomeIcon icon={faTablets} className="text-primary" />
-                      <span>Strengths: {product.strengths.join(', ')}</span>
+                      <span>Strengths: {product.available_forms.strengths.join(', ')}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <FontAwesomeIcon icon={faListCheck} className="text-primary" />
-                      <span>Packaging: {product.packaging}</span>
+                      <span>Packaging: {product.available_forms.packaging}</span>
                     </div>
                   </div>
                 </div>
@@ -104,7 +104,7 @@ const ProductDetails = ({ product, onClose }) => {
                     <FontAwesomeIcon icon={faCircleInfo} className="text-primary" />
                     Indications
                   </h3>
-                  <p className="text-neutral-600">{product.indications}</p>
+                  <p className="text-neutral-600">{product.details.indications.join(', ')}</p>
                 </div>
 
                 {/* Safety Information */}
@@ -115,9 +115,7 @@ const ProductDetails = ({ product, onClose }) => {
                   </h3>
                   <div className="bg-accent/5 border border-accent/10 rounded-lg p-4 text-sm">
                     <p className="text-neutral-700">
-                      {product.prescription 
-                        ? "This medication requires a valid prescription from a licensed healthcare provider. Please consult your doctor before use."
-                        : "While this product is available over-the-counter, please read all instructions carefully and consult a healthcare provider if you have any concerns."}
+                      {product.details.important_safety_information}
                     </p>
                   </div>
                 </div>
@@ -129,14 +127,12 @@ const ProductDetails = ({ product, onClose }) => {
                     Quality Standards
                   </h3>
                   <div className="bg-neutral-50 rounded-lg p-4 text-sm grid grid-cols-2 gap-4">
-                    <div className="flex items-center gap-2">
-                      <FontAwesomeIcon icon={faFlask} className="text-primary" />
-                      <span>WHO-GMP Certified</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <FontAwesomeIcon icon={faShieldHeart} className="text-primary" />
-                      <span>Quality Tested</span>
-                    </div>
+                    {product.details.quality_standards.map((standard, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <FontAwesomeIcon icon={faFlask} className="text-primary" />
+                        <span>{standard}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -149,14 +145,13 @@ const ProductDetails = ({ product, onClose }) => {
               <div>
                 <h3 className="font-semibold mb-3">Storage Instructions</h3>
                 <p className="text-neutral-600 text-sm">
-                  Store in a cool, dry place below 30°C. Keep away from direct sunlight. Keep out of reach of children.
+                  {product.details.storage_instructions}
                 </p>
               </div>
               <div>
                 <h3 className="font-semibold mb-3">Manufacturer</h3>
                 <p className="text-neutral-600 text-sm">
-                  Manufactured by Rokomed Pharma<br />
-                  MIDC Ranjangaon, Pune - 412220
+                  {product.details.manufacturer}
                 </p>
               </div>
             </div>

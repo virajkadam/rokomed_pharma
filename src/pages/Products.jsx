@@ -18,6 +18,7 @@ import {
   faFlask
 } from '@fortawesome/free-solid-svg-icons';
 import CareerOpportunityStrip from '../components/common/CareerOpportunityStrip';
+import { productsData } from '../data/products';
 
 // Lazy load Footer
 const Footer = lazy(() => import('../components/layout/Footer'));
@@ -40,70 +41,20 @@ const Products = () => {
     prescription: []
   });
 
-  // Updated categories array with correct icon
-  const categories = [
-    { id: 'all', name: 'All Products', icon: faPrescriptionBottleMedical },
-    { id: 'antibiotics', name: 'Antibiotics', icon: faVirus },
-    { id: 'cardio', name: 'Cardiovascular', icon: faHeartPulse },
-    { id: 'respiratory', name: 'Respiratory', icon: faLungs },
-    { id: 'neuro', name: 'Neurological', icon: faBrain },
-    { id: 'gastro', name: 'Gastrointestinal', icon: faStethoscope }, // Changed icon
-    { id: 'immunity', name: 'Immunity & Wellness', icon: faShieldVirus },
-    { id: 'otc', name: 'OTC Products', icon: faHandHoldingMedical }
-  ];
+  // Get categories from data
+  const categories = productsData.filters.categories;
 
-  // Product Database
-  const products = [
-    {
-      id: 1,
-      name: "Amoxicillin",
-      category: "antibiotics",
-      composition: "Amoxicillin Trihydrate IP eq. to Amoxicillin 500mg",
-      strengths: ["250mg", "500mg"],
-      type: "Tablet",
-      packaging: "Strip of 10 Tablets",
-      prescription: true,
-      indications: "Bacterial infections",
-      image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=2080",
-      details: "Broad-spectrum antibiotic for various bacterial infections"
-    },
-    {
-      id: 2,
-      name: "Atorvastatin",
-      category: "cardio",
-      composition: "Atorvastatin Calcium IP eq. to Atorvastatin 10mg",
-      strengths: ["10mg", "20mg"],
-      type: "Tablet",
-      packaging: "Strip of 15 Tablets",
-      prescription: true,
-      indications: "High cholesterol",
-      image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=2069",
-      details: "HMG-CoA reductase inhibitor for cholesterol management"
-    },
-    {
-      id: 3,
-      name: "ImmunoBoost Plus",
-      category: "immunity",
-      composition: "Vitamin C, Zinc, Vitamin D3",
-      strengths: ["One daily dose"],
-      type: "Tablet",
-      packaging: "Bottle of 30 Tablets",
-      prescription: false,
-      indications: "Immunity enhancement",
-      image: "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?q=80&w=2070",
-      details: "Daily immune system support supplement"
-    },
-    // Add more products as needed
-  ];
+  // Get products from data
+  const products = productsData.medicines;
 
   const filteredProducts = products.filter(product => {
     const matchesCategory = activeCategory === 'all' || product.category === activeCategory;
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.composition.toLowerCase().includes(searchQuery.toLowerCase());
+                         product.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesFilters = (
       (selectedFilters.type.length === 0 || selectedFilters.type.includes(product.type)) &&
       (selectedFilters.prescription.length === 0 || 
-       selectedFilters.prescription.includes(product.prescription ? 'rx' : 'otc'))
+       selectedFilters.prescription.includes(product.prescription_required ? 'rx' : 'otc'))
     );
     return matchesCategory && matchesSearch && matchesFilters;
   });
@@ -158,16 +109,16 @@ const Products = () => {
       >
         <div className="relative h-48">
           <img
-            src={product.image}
+            src={product.image_url}
             alt={product.name}
             className="w-full h-full object-cover"
             loading="lazy"
             onError={(e) => {
-              e.target.src = '/fallback-product-image.jpg'; // Add a fallback image
+              e.target.src = '/fallback-product-image.jpg';
               e.target.onerror = null;
             }}
           />
-          {product.prescription && (
+          {product.prescription_required && (
             <div className="absolute top-4 right-4 bg-accent text-white text-xs px-2 py-1 rounded">
               Rx Only
             </div>
@@ -175,15 +126,15 @@ const Products = () => {
         </div>
         <div className="p-6">
           <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-          <p className="text-sm text-neutral-600 mb-4">{product.composition}</p>
+          <p className="text-sm text-neutral-600 mb-4">{product.description}</p>
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm">
               <FontAwesomeIcon icon={faTablets} className="text-primary" />
-              <span>Available in: {product.strengths.join(', ')}</span>
+              <span>Available in: {product.available_forms.strengths.join(', ')}</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <FontAwesomeIcon icon={faListCheck} className="text-primary" />
-              <span>{product.packaging}</span>
+              <span>{product.available_forms.packaging}</span>
             </div>
           </div>
           <button 
