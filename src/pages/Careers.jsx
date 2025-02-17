@@ -206,6 +206,8 @@ const Careers = () => {
               <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
                 Explore opportunities across different departments
               </p>
+            <div className="">Submit your resume at</div>
+            <a href="mailto:rokomedpharma@gmail.com" className="text-primary hover:text-primary/80 transition-colors">rokomedpharma@gmail.com</a>
             </div>
 
             {/* Department Filter */}
@@ -250,12 +252,12 @@ const Careers = () => {
                       </div>
                       <p className="mt-2 text-neutral-600">{job.description}</p>
                     </div>
-                    <button 
+                    {/* <button 
                       onClick={() => setSelectedJob(job)}
                       className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors whitespace-nowrap"
                     >
                       Apply Now
-                    </button>
+                    </button> */}
                   </div>
                 </motion.div>
               ))}
