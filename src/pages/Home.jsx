@@ -20,6 +20,7 @@ import {
 import { Link } from 'react-router-dom';
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import CareerOpportunityStrip from '../components/common/CareerOpportunityStrip';
+import heroBg from '../assets/backgrounds/hero-bg.png';
 // Lazy load the Footer component
 const Footer = lazy(() => import('../components/layout/Footer'));
 
@@ -234,13 +235,18 @@ const Home = () => {
           {/* Background Image with Professional Overlay */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1587370560942-ad2a04eabb6d?q=80&w=2070"
-              alt="Modern pharmaceutical laboratory"
+              src={heroBg} 
+              alt="Modern pharmaceutical laboratory" 
               className="w-full h-full object-cover"
             />
-            {/* Professional overlay with subtle gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/85 to-primary/75"></div>
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.3)_0%,rgba(0,0,0,0.2)_100%)]"></div>
+            {/* Primary brand color gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/60 to-transparent"></div>
+            
+            {/* Dark overlay for better text contrast */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/10"></div>
+            
+            {/* Optional: Add a subtle medical-themed pattern overlay */}
+            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,#fff_1px,transparent_0)] bg-[size:20px_20px]"></div>
           </div>
 
           <div className="container mx-auto px-4 relative z-20">
