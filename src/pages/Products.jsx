@@ -17,6 +17,7 @@ import {
   faListCheck,
   faFlask
 } from '@fortawesome/free-solid-svg-icons';
+import CareerOpportunityStrip from '../components/common/CareerOpportunityStrip';
 
 // Lazy load Footer
 const Footer = lazy(() => import('../components/layout/Footer'));
@@ -243,6 +244,7 @@ const Products = () => {
             </div>
           </div>
         </section>
+        <CareerOpportunityStrip />
 
         {/* Main Content */}
         <section className="py-12">

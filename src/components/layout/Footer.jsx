@@ -80,7 +80,7 @@ const Footer = () => {
   const quickLinks = [
     { path: '/about', label: 'About' },
     { path: '/mission-vision', label: 'Mission & Vision' },
-    { path: '/products', label: 'Our Products' },
+    { path: '/products', label: 'Products' },
     { path: '/careers', label: 'Careers' },
     { path: '/wholesaler', label: 'Wholesaler Portal' },
     { path: '/contact', label: 'Contact' }

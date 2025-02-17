@@ -18,6 +18,7 @@ import {
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
 import JobApplicationForm from '../components/careers/JobApplicationForm';
+import CareerOpportunityStrip from '../components/common/CareerOpportunityStrip';
 
 // Lazy load Footer
 const Footer = lazy(() => import('../components/layout/Footer'));
@@ -167,6 +168,7 @@ const Careers = () => {
             </div>
           </div>
         </section>
+        <CareerOpportunityStrip />
 
         {/* Company Culture Section */}
         <section className="py-16 bg-white">

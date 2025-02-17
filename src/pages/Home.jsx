@@ -318,7 +318,7 @@ const Home = () => {
                 </Link>
                 <Link 
                   to="/contact" 
-                  className="bg-accent hover:bg-accent/90 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 hover:translate-y-[-2px] shadow-lg border border-accent/20"
+                  className="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 hover:translate-y-[-2px] shadow-lg border border-primary/20"
                 >
                   Contact Us
                 </Link>

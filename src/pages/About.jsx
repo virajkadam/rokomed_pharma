@@ -15,6 +15,7 @@ import {
   faEarthAsia,
   faSpinner
 } from '@fortawesome/free-solid-svg-icons';
+import CareerOpportunityStrip from '../components/common/CareerOpportunityStrip';
 
 // Lazy load Footer
 const Footer = lazy(() => import('../components/layout/Footer'));
@@ -127,6 +128,8 @@ const About = () => {
             </div>
           </div>
         </section>
+        <CareerOpportunityStrip />
+
 
         {/* Company History Timeline */}
         <section className="py-24 bg-neutral-50">
