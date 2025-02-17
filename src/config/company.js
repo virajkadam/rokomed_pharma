@@ -3,7 +3,7 @@ export const COMPANY_INFO = {
   name: 'Rokomed Pharma',
   shortName: 'Rokomed',
   phone: '+91 9421405900',
-  email: 'info@rokomedpharma.com', // Temporary email
+  email: 'rokomedpharma@gmail.com', // Temporary email
   whatsapp: '+91 9421405900',
   
   // Addresses

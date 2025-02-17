@@ -16,6 +16,7 @@ import {
   faWhatsapp
 } from '@fortawesome/free-brands-svg-icons';
 import { COMPANY_INFO } from '../../config/company';
+import rokomedLogo from '../../assets/logos/rokomed-logo.png';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -23,12 +24,12 @@ const Footer = () => {
   };
 
   const quickLinks = [
-    { path: '/about', label: 'About Us' },
+    { path: '/about', label: 'About' },
     { path: '/mission-vision', label: 'Mission & Vision' },
     { path: '/products', label: 'Our Products' },
     { path: '/careers', label: 'Careers' },
     { path: '/wholesaler', label: 'Wholesaler Portal' },
-    { path: '/contact', label: 'Contact Us' }
+    { path: '/contact', label: 'Contact' }
   ];
 
   const productCategories = [
@@ -66,11 +67,16 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div>
-            <img 
-              src="/logo-white.png" 
-              alt={COMPANY_INFO.name}
-              className="h-12 mb-6"
-            />
+            <Link to="/" className="flex items-center gap-3 mb-6">
+              <img 
+                src={rokomedLogo}
+                alt={COMPANY_INFO.name}
+                className="h-10 w-auto"
+              />
+              <span className="text-2xl font-bold text-primary">
+                {COMPANY_INFO.name}
+              </span>
+            </Link>
             <p className="text-neutral-400 mb-6">
               Leading pharmaceutical company committed to delivering high-quality, affordable medicines while maintaining the highest standards of manufacturing and ethical business practices.
             </p>

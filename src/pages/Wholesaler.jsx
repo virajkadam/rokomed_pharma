@@ -15,6 +15,7 @@ import {
   faSpinner,
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 // Lazy load Footer
 const Footer = lazy(() => import('../components/layout/Footer'));
@@ -100,12 +101,12 @@ const Wholesaler = () => {
                 transition={{ delay: 0.2 }}
                 className="flex flex-wrap justify-center gap-4"
               >
-                <button className="bg-white text-primary hover:bg-white/90 px-8 py-3 rounded-lg font-semibold transition-colors">
-                  Register Now
-                </button>
-                <button className="bg-accent hover:bg-accent/90 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+                <Link to="/contact" className="bg-white text-primary hover:bg-white/90 px-8 py-3 rounded-lg font-semibold transition-colors">
+                  Contact Sales Team
+                </Link>
+                {/* <button className="bg-accent hover:bg-accent/90 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
                   Login Portal
-                </button>
+                </button> */}
               </motion.div>
             </div>
           </div>
@@ -266,12 +267,12 @@ const Wholesaler = () => {
                 Join our network of successful distributors and grow your business with Rokomed Pharma
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
-                  Start Registration
-                </button>
-                <button className="bg-neutral-100 hover:bg-neutral-200 text-neutral-700 px-8 py-3 rounded-lg font-semibold transition-colors">
+                <Link to="/contact" className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+                 Contact Sales Team
+                </Link>
+                {/* <button className="bg-neutral-100 hover:bg-neutral-200 text-neutral-700 px-8 py-3 rounded-lg font-semibold transition-colors">
                   Contact Sales Team
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

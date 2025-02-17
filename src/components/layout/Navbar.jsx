@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import rokomedLogo from '../../assets/logos/rokomed-logo.png';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,8 +20,15 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-primary">
-            Rokomed Pharma
+          <Link to="/" className="flex items-center gap-3">
+            <img 
+              src={rokomedLogo}
+              alt="Rokomed Pharma Logo" 
+              className="h-10 w-auto"
+            />
+            <span className="text-2xl font-bold text-primary">
+              Rokomed Pharma
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
