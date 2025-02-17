@@ -10,7 +10,7 @@ export const productsData = {
       },
       "prescription_required": true,
       "category": "antibiotics",
-      "image_url": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=2080",
+      "image_url": "/images/products/amtrocl625.png",
       "details": {
         "indications": ["Respiratory tract infections", "Urinary tract infections", "Skin infections"],
         "mechanism_of_action": [
@@ -34,7 +34,7 @@ export const productsData = {
       },
       "prescription_required": true,
       "category": "antibiotics",
-      "image_url": "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=2069",
+      "image_url": "/images/products/cefixime-ofloxacin.png",
       "details": {
         "indications": ["Gastrointestinal infections", "Respiratory tract infections", "Urinary tract infections"],
         "mechanism_of_action": [
@@ -58,7 +58,7 @@ export const productsData = {
       },
       "prescription_required": false,
       "category": "immunity",
-      "image_url": "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?q=80&w=2070",
+      "image_url": "/images/products/hbprimegold.png",
       "details": {
         "indications": ["Anemia", "Weakness", "Recovery periods"],
         "mechanism_of_action": [

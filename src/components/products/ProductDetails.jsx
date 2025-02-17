@@ -11,7 +11,8 @@ import {
   faCapsules,
   faXmark,
   faDownload,
-  faPrint
+  faPrint,
+  faPrescriptionBottleMedical
 } from '@fortawesome/free-solid-svg-icons';
 
 const ProductDetails = ({ product, onClose }) => {
@@ -45,20 +46,31 @@ const ProductDetails = ({ product, onClose }) => {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Product Image Section */}
             <div className="relative">
-              <img
-                src={product.image_url}
-                alt={product.name}
-                className="w-full h-64 md:h-full object-cover rounded-t-xl md:rounded-l-xl md:rounded-tr-none"
-                onError={(e) => {
-                  e.target.src = '/fallback-product-image.jpg';
-                  e.target.onerror = null;
-                }}
-              />
-              {product.prescription_required && (
-                <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">
-                  Rx Only
+              <div className="w-full h-64 md:h-full relative">
+                <img
+                  src={product.image_url}
+                  alt={product.name}
+                  className="w-full h-full object-cover rounded-t-xl md:rounded-l-xl md:rounded-tr-none"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    const iconContainer = e.target.nextElementSibling;
+                    iconContainer.classList.remove('hidden');
+                    iconContainer.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'h-full', 'bg-neutral-100');
+                  }}
+                />
+                <div className="hidden">
+                  <FontAwesomeIcon 
+                    icon={product.category === 'immunity' ? faPrescriptionBottleMedical : faCapsules}
+                    className="text-8xl text-primary/30"
+                    title={product.name}
+                  />
                 </div>
-              )}
+                {product.prescription_required && (
+                  <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">
+                    Rx Only
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Product Information Section */}

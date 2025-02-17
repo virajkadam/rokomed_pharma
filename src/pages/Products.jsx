@@ -15,7 +15,8 @@ import {
   faVirus,
   faShieldVirus,
   faListCheck,
-  faFlask
+  faFlask,
+  faCapsules
 } from '@fortawesome/free-solid-svg-icons';
 import CareerOpportunityStrip from '../components/common/CareerOpportunityStrip';
 import { productsData } from '../data/products';
@@ -114,10 +115,19 @@ const Products = () => {
             className="w-full h-full object-cover"
             loading="lazy"
             onError={(e) => {
-              e.target.src = '/fallback-product-image.jpg';
-              e.target.onerror = null;
+              e.target.style.display = 'none';
+              const iconContainer = e.target.nextElementSibling;
+              iconContainer.classList.remove('hidden');
+              iconContainer.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'h-full', 'bg-neutral-100');
             }}
           />
+          <div className="hidden">
+            <FontAwesomeIcon 
+              icon={product.category === 'immunity' ? faPrescriptionBottleMedical : faCapsules}
+              className="text-6xl text-primary/30"
+              title={product.name}
+            />
+          </div>
           {product.prescription_required && (
             <div className="absolute top-4 right-4 bg-accent text-white text-xs px-2 py-1 rounded">
               Rx Only
