@@ -19,6 +19,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import CareerOpportunityStrip from '../components/common/CareerOpportunityStrip';
 // Lazy load the Footer component
 const Footer = lazy(() => import('../components/layout/Footer'));
 
@@ -342,6 +343,7 @@ const Home = () => {
             </div>
           </div>
         </section>
+        <CareerOpportunityStrip />
 
         {/* Interactive Product Categories */}
         <section className="py-24 bg-neutral-50">
