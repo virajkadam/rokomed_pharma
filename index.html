@@ -10,28 +10,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#005BAA" />
     <title>Rokomed Pharma</title>
-    <!-- Start Single Page Apps for GitHub Pages -->
+    <!-- Handle GitHub Pages SPA Routing -->
     <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // MIT License
-      // https://github.com/rafgraph/spa-github-pages
-      (function(l) {
-        if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&')
-          }).join('?');
-          window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + decoded + l.hash
-          );
+      (function() {
+        // Only handle if we have a redirect in the URL
+        if (window.location.search.includes('redirected=true')) {
+          var params = new URLSearchParams(window.location.search);
+          var path = params.get('p') || '';
+          var query = params.get('q') || '';
+          
+          // Clean the path
+          path = path.replace(/~and~/g, '&');
+          query = query.replace(/~and~/g, '&');
+
+          // Construct the final URL
+          var finalPath = path + (query ? '?' + query : '') + window.location.hash;
+          
+          // Replace the current URL without the redirect parameters
+          window.history.replaceState(null, null, finalPath);
         }
-      }(window.location))
+      })();
     </script>
-    <!-- End Single Page Apps for GitHub Pages -->
     <script type="module" crossorigin src="/assets/index-CB7tUFU2.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-DBxEhDRK.js">
     <link rel="stylesheet" crossorigin href="/assets/index-gcijzRNm.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
   </body>
 </html> 
