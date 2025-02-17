@@ -8,6 +8,9 @@ import MissionVision from './pages/MissionVision';
 import Wholesaler from './pages/Wholesaler';
 import Careers from './pages/Careers';
 import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Terms from './pages/Terms';
+import Sitemap from './pages/Sitemap';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
           <Route path="/wholesaler" element={<Wholesaler />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/sitemap" element={<Sitemap />} />
         </Routes>
       </div>
     </Router>
