@@ -21,6 +21,7 @@ import { Link } from 'react-router-dom';
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import CareerOpportunityStrip from '../components/common/CareerOpportunityStrip';
 import heroBg from '../assets/backgrounds/hero-bg.png';
+import { productsData } from '../data/products';
 // Lazy load the Footer component
 const Footer = lazy(() => import('../components/layout/Footer'));
 
@@ -110,29 +111,15 @@ const Home = () => {
     }, stepTime);
   };
 
-  const productCategories = [
-    {
-      title: "Generic Medicines",
-      icon: faTablets,
-      description: "High-quality, affordable generic medications",
-      image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=2080",
-      stats: "200+ Products"
-    },
-    {
-      title: "Specialty Medicines",
-      icon: faHeartPulse,
-      description: "Advanced treatments for specific conditions",
-      image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=2069",
-      stats: "50+ Specialties"
-    },
-    {
-      title: "OTC Products",
-      icon: faHandHoldingMedical,
-      description: "Trusted over-the-counter healthcare solutions",
-      image: "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?q=80&w=2070",
-      stats: "100+ Products"
-    }
-  ];
+  const productCategories = productsData.medicines.map(product => ({
+    title: product.name,
+    icon: product.category === 'immunity' ? faHandHoldingMedical : faTablets,
+    description: product.description,
+    image: product.image_url,
+    stats: product.available_forms.packaging,
+    category: product.category,
+    prescription: product.prescription_required
+  }));
 
   const highlights = [
     {
@@ -355,8 +342,8 @@ const Home = () => {
         <section className="py-24 bg-neutral-50">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Portfolio of Care</h2>
-              <p className="text-neutral-600 max-w-2xl mx-auto">Comprehensive healthcare solutions for every need</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Products</h2>
+              <p className="text-neutral-600 max-w-2xl mx-auto">High-quality pharmaceutical solutions for healthcare needs</p>
             </div>
             
             {/* Mobile View - Card Slider */}
@@ -374,31 +361,49 @@ const Home = () => {
                       transform: `translateX(${-activeCategory * 100 + (isSwiping ? swipeDistance : 0)}%)` 
                     }}
                   >
-                    {productCategories.map((category, index) => (
+                    {productCategories.map((product, index) => (
                       <div key={index} className="w-full flex-shrink-0 px-4">
                         <div className="bg-white rounded-2xl overflow-hidden">
                           <div className="relative aspect-[4/3]">
                             <img 
-                              src={category.image}
-                              alt={category.title}
+                              src={product.image}
+                              alt={product.title}
                               className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                const iconContainer = e.target.nextElementSibling;
+                                iconContainer.classList.remove('hidden');
+                                iconContainer.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'h-full', 'bg-neutral-100');
+                              }}
                             />
+                            <div className="hidden">
+                              <FontAwesomeIcon 
+                                icon={product.icon}
+                                className="text-6xl text-primary/30"
+                                title={product.title}
+                              />
+                            </div>
+                            {product.prescription && (
+                              <div className="absolute top-4 right-4 bg-accent text-white text-xs px-2 py-1 rounded">
+                                Rx Only
+                              </div>
+                            )}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                             <div className="absolute bottom-0 left-0 right-0 p-6">
-                              <h3 className="text-xl font-semibold text-white mb-2">{category.title}</h3>
-                              <p className="text-white/90 text-sm">{category.description}</p>
+                              <h3 className="text-xl font-semibold text-white mb-2">{product.title}</h3>
+                              <p className="text-white/90 text-sm">{product.description}</p>
                             </div>
                           </div>
                           <div className="p-6 border-t border-neutral-100">
                             <div className="flex items-center justify-between">
-                              <span className="text-sm text-neutral-500">{category.stats}</span>
-                              <button 
-                                onClick={() => goToSlide(index)}
+                              <span className="text-sm text-neutral-500">{product.stats}</span>
+                              <Link 
+                                to="/products"
                                 className="text-primary hover:text-primary/80 text-sm font-medium transition-colors flex items-center gap-2"
                               >
                                 View Details
                                 <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                              </button>
+                              </Link>
                             </div>
                           </div>
                         </div>
@@ -428,7 +433,7 @@ const Home = () => {
             {/* Desktop View - Split Layout */}
             <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8">
               <div className="lg:col-span-5 space-y-4">
-                {productCategories.map((category, index) => (
+                {productCategories.map((product, index) => (
                   <div
                     key={index}
                     className={`p-6 rounded-xl cursor-pointer transition-all duration-300 ${
@@ -441,17 +446,17 @@ const Home = () => {
                     <div className="flex items-start gap-4">
                       <div className={`p-3 rounded-lg ${activeCategory === index ? 'bg-white/10' : 'bg-primary/5'}`}>
                         <FontAwesomeIcon 
-                          icon={category.icon} 
+                          icon={product.icon} 
                           className={`text-2xl ${activeCategory === index ? 'text-white' : 'text-primary'}`}
                         />
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold mb-2">{category.title}</h3>
+                        <h3 className="text-xl font-semibold mb-2">{product.title}</h3>
                         <p className={`text-sm mb-3 ${activeCategory === index ? 'text-white/90' : 'text-neutral-600'}`}>
-                          {category.description}
+                          {product.description}
                         </p>
                         <div className={`text-sm font-medium ${activeCategory === index ? 'text-white/80' : 'text-primary'}`}>
-                          {category.stats}
+                          {product.stats}
                         </div>
                       </div>
                     </div>
@@ -461,7 +466,7 @@ const Home = () => {
 
               <div className="lg:col-span-7">
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[16/10]">
-                  {productCategories.map((category, index) => (
+                  {productCategories.map((product, index) => (
                     <div
                       key={index}
                       className={`absolute inset-0 transition-all duration-500 transform ${
@@ -471,19 +476,32 @@ const Home = () => {
                       }`}
                     >
                       <img 
-                        src={category.image}
-                        alt={category.title}
+                        src={product.image}
+                        alt={product.title}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          const iconContainer = e.target.nextElementSibling;
+                          iconContainer.classList.remove('hidden');
+                          iconContainer.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'h-full', 'bg-neutral-100');
+                        }}
                       />
+                      <div className="hidden">
+                        <FontAwesomeIcon 
+                          icon={product.icon}
+                          className="text-8xl text-primary/30"
+                          title={product.title}
+                        />
+                      </div>
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
                         <div className="absolute bottom-0 left-0 right-0 p-8">
-                          <h4 className="text-2xl font-bold text-white mb-3">{category.title}</h4>
-                          <p className="text-white/90 mb-6 max-w-lg">{category.description}</p>
+                          <h4 className="text-2xl font-bold text-white mb-3">{product.title}</h4>
+                          <p className="text-white/90 mb-6 max-w-lg">{product.description}</p>
                           <Link 
-                            to={`/products/${category.title.toLowerCase().replace(' ', '-')}`}
+                            to="/products"
                             className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-lg transition-all duration-300 group"
                           >
-                            Explore Products
+                            View Details
                             <FontAwesomeIcon 
                               icon={faChevronRight} 
                               className="text-sm transition-transform group-hover:translate-x-1"
