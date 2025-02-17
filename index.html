@@ -27,18 +27,28 @@
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
 
-    <!-- Handle 404 redirects -->
+    <!-- Handle route preservation -->
     <script type="text/javascript">
-      // Redirect to home page if path doesn't exist
       (function() {
-        var redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
-        if (redirect && redirect !== location.href) {
-          history.replaceState(null, null, redirect);
+        // Check for redirect URL in sessionStorage
+        const redirectUrl = sessionStorage.getItem('redirectUrl');
+        if (redirectUrl) {
+          sessionStorage.removeItem('redirectUrl');
+          // Use history API to preserve back button functionality
+          window.history.replaceState(null, null, redirectUrl);
+        }
+
+        // Handle query parameter redirect
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentRoute = urlParams.get('currentRoute');
+        if (currentRoute) {
+          // Clean up the URL
+          const cleanUrl = '/' + currentRoute;
+          window.history.replaceState(null, null, cleanUrl);
         }
       })();
     </script>
-    <script type="module" crossorigin src="/rokomed_pharma/assets/index-D9HBwRLo.js"></script>
+    <script type="module" crossorigin src="/rokomed_pharma/assets/index-cOQIw9on.js"></script>
     <link rel="stylesheet" crossorigin href="/rokomed_pharma/assets/index-DUAMp36u.css">
   </head>
   <body>
