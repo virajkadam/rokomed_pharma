@@ -528,18 +528,18 @@ const Home = () => {
               {highlights.map((highlight, index) => (
                 <div 
                   key={index}
-                  className="group relative overflow-hidden rounded-2xl p-8 hover:shadow-xl transition-all duration-500"
+                  className="group relative overflow-hidden rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-500"
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${highlight.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                  <div className={`absolute inset-0 bg-gradient-to-br ${highlight.color} opacity-100 transition-opacity duration-500`}></div>
                   <div className="relative z-10">
                     <FontAwesomeIcon 
                       icon={highlight.icon} 
-                      className="text-4xl text-primary group-hover:text-white transition-colors duration-500 mb-6"
+                      className="text-4xl text-white transition-colors duration-500 mb-6"
                     />
-                    <h3 className="text-xl font-semibold mb-4 group-hover:text-white transition-colors duration-500">
+                    <h3 className="text-xl font-semibold mb-4 text-white transition-colors duration-500">
                       {highlight.title}
                     </h3>
-                    <p className="text-neutral-600 group-hover:text-white/90 transition-colors duration-500">
+                    <p className="text-white/90 transition-colors duration-500">
                       {highlight.description}
                     </p>
                   </div>
@@ -597,61 +597,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* News & Updates Section */}
-        <section className="py-24 bg-neutral-50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest Updates</h2>
-              <p className="text-neutral-600 max-w-2xl mx-auto">Stay informed about our latest developments</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "New Product Launch",
-                  date: "March 2024",
-                  description: "Introducing our latest range of specialty medicines",
-                  image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070"
-                },
-                {
-                  title: "WHO-GMP Certification",
-                  date: "February 2024",
-                  description: "Successfully renewed our WHO-GMP certification",
-                  image: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=80&w=2072"
-                },
-                {
-                  title: "Expansion News",
-                  date: "January 2024",
-                  description: "Expanding our presence to three new states",
-                  image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=2076"
-                }
-              ].map((news, index) => (
-                <div 
-                  key={index} 
-                  className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-                >
-                  <img 
-                    src={news.image} 
-                    alt={news.title}
-                    className="w-full h-48 object-cover"
-                    loading="lazy"
-                  />
-                  <div className="p-6">
-                    <div className="text-sm text-neutral-500 mb-2">{news.date}</div>
-                    <h3 className="text-xl font-semibold mb-2">{news.title}</h3>
-                    <p className="text-neutral-600 mb-4">{news.description}</p>
-                    <Link 
-                      to="/news" 
-                      className="text-primary hover:text-secondary transition-colors inline-flex items-center gap-2"
-                    >
-                      Read More
-                      <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+
       </div>
       
       {/* Lazy loaded Footer with Suspense */}

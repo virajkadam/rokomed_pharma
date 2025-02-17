@@ -80,16 +80,13 @@ const Footer = () => {
   const quickLinks = [
     { path: '/about', label: 'About' },
     { path: '/mission-vision', label: 'Mission & Vision' },
-    { path: '/products', label: 'Products' },
-    { path: '/careers', label: 'Careers' },
-    { path: '/wholesaler', label: 'Wholesaler Portal' },
     { path: '/contact', label: 'Contact' }
   ];
 
   const productCategories = [
-    { path: '/products/generic-medicines', label: 'Generic Medicines' },
-    { path: '/products/specialty-medicines', label: 'Specialty Medicines' },
-    { path: '/products/otc-products', label: 'OTC Products' }
+    { path: '/products', label: 'Products' },
+    { path: '/careers', label: 'Careers' },
+    { path: '/wholesaler', label: 'Wholesaler Portal' }
   ];
 
   return (
@@ -196,7 +193,7 @@ const Footer = () => {
 
             {/* Product Categories */}
             <div>
-              <h4 className="text-lg font-semibold mb-6">Our Products</h4>
+              <h4 className="text-lg font-semibold mb-6">Others</h4>
               <ul className="space-y-4">
                 {productCategories.map((link, index) => (
                   <li key={index}>

@@ -168,7 +168,7 @@ const Contact = () => {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="bg-neutral-50 p-8 rounded-2xl shadow-sm"
+                className="bg-neutral-50 p-8 rounded-2xl shadow-sm border border-neutral-200"
               >
                 <h2 className="text-3xl font-bold mb-8">Send Us a Message</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -304,7 +304,7 @@ const Contact = () => {
                 <h2 className="text-3xl font-bold mb-8">Our Locations</h2>
                 <div className="space-y-6">
                   {/* Corporate Office */}
-                  <div className="bg-neutral-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="bg-neutral-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-neutral-200">
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <FontAwesomeIcon icon={faBuilding} className="text-2xl text-primary" />
@@ -317,10 +317,6 @@ const Contact = () => {
                           {COMPANY_INFO.addresses.corporate.line3}
                         </p>
                         <div className="space-y-2">
-                          <a href={`tel:${COMPANY_INFO.addresses.corporate.phone}`} className="flex items-center gap-2 text-neutral-600 hover:text-primary transition-colors">
-                            <FontAwesomeIcon icon={faPhone} />
-                            {COMPANY_INFO.addresses.corporate.phone}
-                          </a>
                           <div className="flex items-center gap-2 text-neutral-600">
                             <FontAwesomeIcon icon={faClock} />
                             {COMPANY_INFO.addresses.corporate.timing}
@@ -331,7 +327,7 @@ const Contact = () => {
                   </div>
 
                   {/* Manufacturing Unit */}
-                  <div className="bg-neutral-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="bg-neutral-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-neutral-200">
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <FontAwesomeIcon icon={faIndustry} className="text-2xl text-primary" />
@@ -344,10 +340,6 @@ const Contact = () => {
                           {COMPANY_INFO.addresses.manufacturing.line3}
                         </p>
                         <div className="space-y-2">
-                          <a href={`tel:${COMPANY_INFO.addresses.manufacturing.phone}`} className="flex items-center gap-2 text-neutral-600 hover:text-primary transition-colors">
-                            <FontAwesomeIcon icon={faPhone} />
-                            {COMPANY_INFO.addresses.manufacturing.phone}
-                          </a>
                           <div className="flex items-center gap-2 text-neutral-600">
                             <FontAwesomeIcon icon={faClock} />
                             {COMPANY_INFO.addresses.manufacturing.timing}
@@ -387,63 +379,7 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* Map Section */}
-        <section className="py-16 bg-neutral-50">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Map Container */}
-                <div className="lg:col-span-2">
-                  <div className="bg-white rounded-xl shadow-lg overflow-hidden h-[400px]">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.6974539881264!2d73.73465287499171!3d18.58956058246365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bbde6f9f8a03%3A0xb073c24c5afe7ddb!2sHinjewadi%20Phase%201%2C%20Hinjawadi%2C%20Pune%2C%20Maharashtra%20411057!5e0!3m2!1sen!2sin!4v1709799171099!5m2!1sen!2sin"
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen=""
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                  </div>
-                </div>
-
-                {/* Quick Info */}
-                <div className="bg-white rounded-xl shadow-lg p-6">
-                  <h3 className="text-xl font-semibold mb-6">Visit Us</h3>
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="font-medium text-neutral-900 mb-2">Corporate Office</h4>
-                      <p className="text-neutral-600 text-sm">
-                        {COMPANY_INFO.addresses.corporate.line1}<br />
-                        {COMPANY_INFO.addresses.corporate.line2}<br />
-                        {COMPANY_INFO.addresses.corporate.line3}
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-neutral-900 mb-2">Manufacturing Unit</h4>
-                      <p className="text-neutral-600 text-sm">
-                        {COMPANY_INFO.addresses.manufacturing.line1}<br />
-                        {COMPANY_INFO.addresses.manufacturing.line2}<br />
-                        {COMPANY_INFO.addresses.manufacturing.line3}
-                      </p>
-                    </div>
-                    <div className="pt-4 border-t border-neutral-100">
-                      <a 
-                        href="https://www.google.com/maps/place/Hinjewadi+Phase+1,+Hinjawadi,+Pune,+Maharashtra+411057/@18.5895606,73.7346529,17z/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-medium"
-                      >
-                        <FontAwesomeIcon icon={faLocationDot} />
-                        Get Directions
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+    
       </div>
 
       {/* Lazy loaded Footer with Suspense */}

@@ -1,6 +1,7 @@
 /* Enable smooth scrolling for the entire page */
 html {
   scroll-behavior: smooth;
+  overflow-y: scroll; /* Prevents layout shift when navigating between pages */
 }
 
 /* For Safari and older browsers */
@@ -8,4 +9,9 @@ html {
   html {
     -webkit-overflow-scrolling: touch;
   }
+}
+
+/* Ensure proper scroll behavior for elements */
+* {
+  scroll-margin-top: 80px; /* Adjusts for fixed header if needed */
 } 
