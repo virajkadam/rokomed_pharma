@@ -1,0 +1,11 @@
+/* Enable smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* For Safari and older browsers */
+@supports not (scroll-behavior: smooth) {
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+} 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
@@ -18,10 +18,63 @@ import {
 import { COMPANY_INFO } from '../../config/company';
 import rokomedLogo from '../../assets/logos/rokomed-logo.png';
 import CareerOpportunityStrip from '../common/CareerOpportunityStrip';
+import smoothscroll from 'smoothscroll-polyfill';
 
 const Footer = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Initialize smoothscroll polyfill
+  useEffect(() => {
+    // Add smooth scrolling behavior to all elements
+    document.documentElement.style.scrollBehavior = 'smooth';
+    smoothscroll.polyfill();
+  }, []);
+
+  // Throttled scroll handler for better performance
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [handleScroll]);
+
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    try {
+      // Try using native smooth scroll first
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } catch (error) {
+      // Fallback for older browsers
+      const scrollToTop = () => {
+        const currentPosition = window.pageYOffset;
+        if (currentPosition > 0) {
+          window.requestAnimationFrame(scrollToTop);
+          window.scrollTo(0, currentPosition - currentPosition / 8);
+        }
+      };
+      scrollToTop();
+    }
   };
 
   const quickLinks = [
@@ -42,6 +95,30 @@ const Footer = () => {
   return (
     <>
       <CareerOpportunityStrip />
+      {/* Scroll To Top Button with enhanced animations */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-8 right-8 z-50 p-4 rounded-full shadow-lg 
+          bg-primary hover:bg-primary/90 text-white 
+          transition-all duration-500 ease-in-out
+          transform hover:scale-110 active:scale-95
+          hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50
+          ${isVisible 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-10 pointer-events-none'
+          }`}
+        aria-label="Scroll to top"
+        style={{
+          willChange: 'transform, opacity',
+          backfaceVisibility: 'hidden'
+        }}
+      >
+        <FontAwesomeIcon 
+          icon={faArrowUp} 
+          className="text-xl transform transition-transform group-hover:scale-110" 
+        />
+      </button>
+      
       <footer className="bg-neutral-900 text-white">
         {/* Pre-Footer CTA */}
         {/* <div className="bg-primary">
@@ -182,13 +259,6 @@ const Footer = () => {
                   Sitemap
                 </Link>
               </div>
-              <button 
-                onClick={scrollToTop}
-                className="bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg transition-colors"
-                aria-label="Scroll to top"
-              >
-                <FontAwesomeIcon icon={faArrowUp} />
-              </button>
             </div>
           </div>
         </div>

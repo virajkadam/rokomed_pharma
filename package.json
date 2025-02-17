@@ -35,7 +35,8 @@
     "framer-motion": "^12.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.1"
+    "react-router-dom": "^6.22.1",
+    "smoothscroll-polyfill": "^0.4.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.17",
